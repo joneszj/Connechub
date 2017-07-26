@@ -5,5 +5,5 @@ function getPost(app, postid, callback) {
 }
 
 module.exports = {
-    getPost: getPost
+    getPost: getPost 
 } 
