@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Subcategory', {
+  return sequelize.define('Vote', {
     name: DataTypes.STRING,
-    description: DataTypes.STRING
+    description: DataTypes.STRING(2000)
   });
 };
