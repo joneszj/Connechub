@@ -9,18 +9,18 @@ module.exports = function (app) {
 }
 
 function createCategories(app ,callback) {
-    var bulk = [];
+    var bulk = []
     for (var y = 0; y < app.locals._.random(50, 75); y++) {
         bulk.push({
-            name: fake.commerce.department() + '-' + fake.lorem.word() + '-' + fake.lorem.word(),
+            name: fake.commerce.department() + fake.lorem.word() + fake.lorem.word(),
             description: fake.lorem.paragraph(5)
-        });
+        })
     }
     app.locals.db.models.Category.bulkCreate(bulk).then(() => callback);   
 }
 function createSubCategories(app, callback) {
-    var bulk = [];
-    for (var y = 0; y < 300; y++) {
+    var bulk = []
+    for (var y = 0; y < 200; y++) {
         bulk.push({
             name: fake.commerce.product(),
             description: fake.lorem.sentence(app.locals._.random(1, 3))
@@ -29,11 +29,11 @@ function createSubCategories(app, callback) {
     app.locals.db.models.Subcategory.bulkCreate(bulk).then(() => callback);
 }
 function associateSubcategoriesToCategories(app) {
-    app.locals.db.models.Category.findAll().then((categories) => {
+    app.locals.db.models.Category.findAll().then((category) => {
         app.locals.db.models.Subcategory.findAll().then((subcategories) => {
             for (var y = 0; y < subcategories.length; y++) {
                 var subcategory = subcategories[y];
-                subcategory.setCategory(categories[app.locals._.random(1, categories.length)]);
+                subcategory.setCategory(category[app.locals._.random(0, category.length)]);
             }
         });
     })
