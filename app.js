@@ -10,9 +10,13 @@ var index = require('./routes/index');
 var search = require('./routes/search');
 var profile = require('./routes/secure/profile');
 
+var passport = require('passport');
+var authentication = require('./routes/secure/authentication');
+
 var app = express();
 
 app.locals._ = require('lodash');
+require('./helpers/passport')(app);
 app.locals.db = require('./data/database').sequelize;
 require('./data/database').testConnection();
 //require('./data/database').initialize(app);
@@ -29,13 +33,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 
 app.use('/', index);
 app.use('/profile', profile);
 app.use('/search', search);
 
+app.use('/auth', authentication);
+
 app.use(require('forest-express-sequelize').init({
-  modelsDir: __dirname + '/data/models',  // Your models directory.
+  modelsDir: __dirname + '/data/models', 
   envSecret: process.env.FOREST_ENV_SECRET,
   authSecret: process.env.FOREST_AUTH_SECRET,
   sequelize: require('./data/database').sequelize

@@ -1,11 +1,11 @@
 var Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('mysql://' +
-    (process.env.dbUser || 'connechub') + ':' +
-    (process.env.dbPassword || 'connechub') + '@' +
-    (process.env.dbServer || 'localhost') + ':' +
-    (process.env.dbPort || '3306') +
-    (process.env.dbSchema || '/connechub'), {
+    (process.env.dbUser) + ':' +
+    (process.env.dbPassword) + '@' +
+    (process.env.dbServer) + ':' +
+    (process.env.dbPort) +
+    (process.env.dbSchema), {
         pool: {
             max: 50,
             min: 0,
@@ -57,17 +57,10 @@ models.forEach(function (model) {
 
 // build relationships
 (function (m) {
-    //categories
+    //categories & subcategories
     m.category.hasMany(m.subcategory);
     m.subcategory.belongsTo(m.category);
     m.subcategory.hasMany(m.post);
-    m.post.belongsTo(m.subcategory);
-    // m.post.belongsToMany(m.subcategory, {
-    //     through: 'SubcategoryPost'
-    // });
-    // m.subcategory.belongsToMany(m.post, {
-    //     through: 'SubcategoryPost'
-    // });
     //profiles
     m.profile.hasMany(m.post);
     m.profile.hasOne(m.address);
@@ -77,6 +70,7 @@ models.forEach(function (model) {
     m.post.hasOne(m.contact);
     m.post.hasMany(m.vote);
     m.post.hasMany(m.impression);
+    m.post.belongsTo(m.subcategory);
 })(module.exports);
 
 module.exports = {
