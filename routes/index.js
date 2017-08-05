@@ -14,7 +14,7 @@ router.get('/api/:category', function (req, res, next) {
 
 // get subcategory posts
 router.get('/api/:category/:subcategory', function (req, res, next) {
-  category.getCategorySubcategories(req.app, req.params.category, req.params.subcategory, (subcategory) => res.json({ Subcategory: subcategory }))
+  category.getCategorySubcategories(req.app, req.params.category, req.params.subcategory, (subcategory) => res.json({ Category: subcategory }))
 });
 
 module.exports = router;

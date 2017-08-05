@@ -7,11 +7,11 @@ function search(app, search, location, category, callback) {
             attributes: ['id', 'name'],
             include: [{
                 model: app.locals.db.models.Post,
-                attributes: ['id', 'name', 'location'],
+                attributes: ['id', 'name', 'description'],
                 where: buildWhereClause(search, location)
             }]
         }]
-    }).then((result) => callback(result))
+    }).then((result) => callback(result));
 }
 
 function buildWhereClause(search, location) {

@@ -1,7 +1,8 @@
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('Category', {
     name: DataTypes.STRING,
-    description: DataTypes.STRING(2000)
+    slug: DataTypes.STRING,
+    description: DataTypes.STRING
   }, {
       indexes: [{
         unique: true,

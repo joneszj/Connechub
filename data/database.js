@@ -5,7 +5,17 @@ const sequelize = new Sequelize('mysql://' +
     (process.env.dbPassword || 'connechub') + '@' +
     (process.env.dbServer || 'localhost') + ':' +
     (process.env.dbPort || '3306') +
-    (process.env.dbSchema || '/connechub'));
+    (process.env.dbSchema || '/connechub'), {
+        pool: {
+            max: 50,
+            min: 0,
+            idle: 200000,
+            acquire: 200000
+        },
+        dialectOptions: {
+            timeout: 1000000
+        }
+    });
 
 function testConnection() {
     sequelize
@@ -50,12 +60,14 @@ models.forEach(function (model) {
     //categories
     m.category.hasMany(m.subcategory);
     m.subcategory.belongsTo(m.category);
-    m.post.belongsToMany(m.subcategory, {
-        through: 'SubcategoryPost'
-    });
-    m.subcategory.belongsToMany(m.post, {
-        through: 'SubcategoryPost'
-    });
+    m.subcategory.hasMany(m.post);
+    m.post.belongsTo(m.subcategory);
+    // m.post.belongsToMany(m.subcategory, {
+    //     through: 'SubcategoryPost'
+    // });
+    // m.subcategory.belongsToMany(m.post, {
+    //     through: 'SubcategoryPost'
+    // });
     //profiles
     m.profile.hasMany(m.post);
     m.profile.hasOne(m.address);

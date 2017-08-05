@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Profile', {
     email: DataTypes.STRING,
     username: DataTypes.STRING,
-    bio: DataTypes.STRING,
+    bio: DataTypes.TEXT,
     oauthid: DataTypes.STRING,
     access_token: DataTypes.STRING,
     avatarPath: DataTypes.STRING
