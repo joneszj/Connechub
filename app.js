@@ -8,7 +8,11 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var search = require('./routes/search');
+var publicPost = require('./routes/posts');
+
 var profile = require('./routes/secure/profile');
+var post = require('./routes/secure/posts');
+var vote = require('./routes/secure/votes');
 
 var passport = require('passport');
 var authentication = require('./routes/secure/authentication');
@@ -16,10 +20,11 @@ var authentication = require('./routes/secure/authentication');
 var app = express();
 
 app.locals._ = require('lodash');
-require('./helpers/passport')(app);
 app.locals.db = require('./data/database').sequelize;
+app.locals.encryption = require('./helpers/encryption');
 require('./data/database').testConnection();
-//require('./data/database').initialize(app);
+require('./data/database').initialize(app);
+require('./helpers/passport')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,10 +40,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
-app.use('/', index);
-app.use('/profile', profile);
-app.use('/search', search);
+app.use('/api/posts', publicPost);
+app.use('/api/search', search);
+app.use('/api', index);
 
+app.use('/auth/profile', profile);
+app.use('/auth/posts', post);
+app.use('/auth/votes', vote);
 app.use('/auth', authentication);
 
 app.use(require('forest-express-sequelize').init({

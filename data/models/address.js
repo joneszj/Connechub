@@ -8,5 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     region: DataTypes.STRING,
     postcode: DataTypes.STRING,
     country: DataTypes.STRING
+  }, {
+    paranoid: true
   });
 };
