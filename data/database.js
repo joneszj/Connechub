@@ -70,7 +70,6 @@ models.forEach(function (model) {
     m.post.hasOne(m.contact);
     m.post.hasMany(m.vote);
     m.post.hasMany(m.impression);
-    m.post.belongsTo(m.profile);
     m.post.belongsTo(m.subcategory);
 })(module.exports);
 

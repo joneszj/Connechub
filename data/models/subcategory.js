@@ -3,7 +3,5 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     slug: DataTypes.STRING,
     description: DataTypes.STRING
-  }, {
-    paranoid: true
   });
 };
