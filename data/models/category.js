@@ -7,6 +7,7 @@ module.exports = function (sequelize, DataTypes) {
       indexes: [{
         unique: true,
         fields: ['name']
-      }]
+      }],
+      paranoid: true
     });
 };

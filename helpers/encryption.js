@@ -9,7 +9,7 @@ var password = process.env.ENCRYPTION_PASSWORD;
 
 function encrypt(text) {
     var cipher = crypto.createCipher(algorithm, password)
-    var crypted = cipher.update(text, 'utf8', 'hex')
+    var encrypted = cipher.update(text.toString(), 'utf8', 'hex')
     encrypted += cipher.final('hex');
     return encrypted;
 }

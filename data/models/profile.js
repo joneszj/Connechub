@@ -6,6 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     oauthid: DataTypes.STRING,
     access_token: DataTypes.STRING,
     avatarPath: DataTypes.STRING
+  }, {
+    paranoid: true
   });
 };
 

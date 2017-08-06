@@ -417,7 +417,7 @@ function createAndAssociateSubCategoriesToCategories(app, callback) {
 
 function createProfiles(app) {
     app.locals.db.models.Subcategory.findAndCountAll().then((result) => {
-        for (var y = 0; y < 1000; y++) {
+        for (var y = 0; y < 10; y++) {
             app.locals.db.models.Profile.create({
                 email: fake.internet.email(),
                 username: fake.internet.userName(),

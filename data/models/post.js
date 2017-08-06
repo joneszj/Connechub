@@ -3,6 +3,8 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     description: DataTypes.STRING(2000),
     price: DataTypes.STRING,
+  }, {
+    paranoid: true
   });
 };
 

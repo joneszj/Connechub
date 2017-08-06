@@ -3,5 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     email: DataTypes.STRING,
     phone: DataTypes.STRING(2000),
     text: DataTypes.BOOLEAN
+  }, {
+    paranoid: true
   });
 };
